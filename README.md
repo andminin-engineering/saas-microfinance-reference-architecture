@@ -1,8 +1,8 @@
-# SaaS Micro-Finance Platform Reference Architecture (Vale Libreta Digital)
+# SaaS Micro-Finance Platform Reference Architecture (ValeFiado)
 
-This repository documents the reference architecture behind Vale Libreta Digital, a closed-source SaaS product focused on digitalizing informal micro-credit operations for small merchants. The core business challenge is to provide a highly available, low-operational-cost platform that can scale across many independent shops while preserving financial correctness, auditability, and data protection.
+This repository documents the reference architecture that guides the design of **ValeFiado** (valefiado.com), a closed-source SaaS product I own and operate, focused on digitalizing informal micro-credit operations for small merchants. The core business challenge is to provide a highly available, low-operational-cost platform that can scale across many independent shops while preserving financial correctness, auditability, and data protection.
 
-Vale Libreta Digital addresses a common market gap: neighborhood businesses and small retailers often run credit ledgers manually, with limited visibility, weak reconciliation practices, and high operational risk. This architecture blueprint defines how to modernize that model through distributed systems patterns, resilient infrastructure, and tenant-aware isolation without exposing proprietary code.
+ValeFiado addresses a common market gap: neighborhood businesses and small retailers often run credit ledgers manually, with limited visibility, weak reconciliation practices, and high operational risk. This architecture blueprint defines how to modernize that model through distributed systems patterns, resilient infrastructure, and tenant-aware isolation without exposing proprietary code.
 
 ## System Design & Distributed Patterns
 
@@ -54,17 +54,17 @@ flowchart LR
     CA[Merchant Client App]
     AG[API Gateway]
 
-    subgraph MS[Decoupled Microservices]
+    subgraph MS["Decoupled Microservices"]
         CS[Credit Service]
         PS[Payment Service]
         TS[Tenant Service]
         RS[Reporting Projection Service]
     end
 
-    subgraph PL[Persistence & Resilience Layer]
+    subgraph PL["Persistence & Resilience Layer"]
         DB[(Relational Financial DB)]
         CQ[(Command Queue)]
-        RY[Retry Policy Engine\nExponential Backoff + Jitter]
+        RY["Retry Policy Engine<br/>Exponential Backoff + Jitter"]
         RO[(Read Model Store)]
     end
 
@@ -81,7 +81,7 @@ flowchart LR
 
     DB --> RS
     RS --> RO
-    RO --> AG
+    RS --> AG
     AG --> CA
 ```
 
